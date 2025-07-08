@@ -1,8 +1,9 @@
 from aiogram import Router
 from aiogram.filters import Command, and_f
 from aiogram.types import Message
-from wireguard import run_wireguard_cmd
-from utils.filter import IsEgoric
+
+from utils import IsAdmin
+from utils.wireguard import run_wireguard_cmd
 
 __all__ = ["router"]
 
@@ -10,10 +11,10 @@ __all__ = ["router"]
 router = Router()
 
 
-@router.message(and_f(IsEgoric(), Command("listclients")))
+@router.message(and_f(IsAdmin(), Command("listclients")))
 async def list_clients(message: Message):
     wireguard_response = run_wireguard_cmd(["--listclients"])
-    await message.answer(f"List of clients:\n```{wireguard_response}\n```")
+    await message.answer(f"List of clients:\n<code>{wireguard_response}\n</code>")
 
 
 @router.message()

@@ -1,5 +1,6 @@
 import subprocess
-from config import config
+
+from core import config
 
 __all__ = ["run_wireguard_cmd"]
 

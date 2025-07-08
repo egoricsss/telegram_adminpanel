@@ -1,16 +1,24 @@
+import os
+import sys
+
 from aiogram import Bot, Dispatcher
-from config import config
-from bot import router
-from aiohttp import web
-from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from aiogram.types.input_file import FSInputFile
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiohttp import web
+
+from command_handlers.bot import router
+from core import config
+
+sys.path.insert(1, os.path.join(sys.path[0], ".."))
 
 
 async def on_startup(bot: Bot) -> None:
     await bot.set_webhook(
         url=f"{config.BASE_WEBHOOK_URL}{config.WEBHOOK_PATH}",
         secret_token=config.WEBHOOK_SECRET,
-        certificate=FSInputFile(config.CERTIFICATE_PATH)
+        certificate=FSInputFile(config.CERTIFICATE_PATH),
     )
 
 
@@ -18,7 +26,9 @@ def main() -> None:
     dp = Dispatcher()
     dp.include_router(router)
     dp.startup.register(on_startup)
-    bot = Bot(token=config.TOKEN)
+    bot = Bot(
+        token=config.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     app = web.Application()
     webhook_request_handler = SimpleRequestHandler(
         dispatcher=dp, bot=bot, secret_token=config.WEBHOOK_SECRET
