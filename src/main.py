@@ -8,7 +8,7 @@ from aiogram.types.input_file import FSInputFile
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
 
-from command_handlers import base_router, clientlist_router, add_router, remove_router
+from command_handlers import add_router, base_router, clientlist_router, remove_router
 from core import config
 
 sys.path.insert(1, os.path.join(sys.path[0], ".."))

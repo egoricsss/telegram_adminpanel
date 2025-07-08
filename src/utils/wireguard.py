@@ -17,4 +17,4 @@ def run_wireguard_cmd(args: list[str]) -> str:
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
-        return f"Ошибка:\n{e.stderr.strip()}"
+        return e.stderr.strip()
