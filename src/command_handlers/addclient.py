@@ -3,25 +3,20 @@ from pathlib import Path
 from aiogram import Router
 from aiogram.filters import Command, and_f
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import FSInputFile, InputMediaDocument, Message
 
-from utils import IsAdmin, run_wireguard_cmd
+from utils import IsAdmin, run_wireguard_cmd, GetClientNameState
 
 router = Router()
 
 
-class AddClientState(StatesGroup):
-    name = State()
-
-
 @router.message(and_f(IsAdmin(), Command("addclient")))
 async def addclient(message: Message, state: FSMContext) -> None:
-    await state.set_state(AddClientState.name)
+    await state.set_state(GetClientNameState.name)
     await message.answer("Enter client name")
 
 
-@router.message(AddClientState.name)
+@router.message(GetClientNameState.name)
 async def process_added_clientname(message: Message, state: FSMContext) -> None:
     await state.clear()
     client_name = message.text.strip()

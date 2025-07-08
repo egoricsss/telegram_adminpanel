@@ -1,25 +1,20 @@
 from aiogram import Router
 from aiogram.filters import Command, and_f
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message
+from aiogram.fsm.context import FSMContext
 
-from utils import IsAdmin, run_wireguard_cmd
+from utils import IsAdmin, run_wireguard_cmd, GetClientNameState
 
 router = Router()
 
 
-class RemoveClientState(StatesGroup):
-    name = State()
-
-
 @router.message(and_f(IsAdmin(), Command("removeclient")))
 async def removeclient(message: Message, state: FSMContext) -> None:
-    await state.set_state(RemoveClientState.name)
+    await state.set_state(GetClientNameState.name)
     await message.answer("Enter client name to delete")
 
 
-@router.message(RemoveClientState.name)
+@router.message(GetClientNameState.name)
 async def process_removed_clientname(message: Message, state: FSMContext) -> None:
     await state.clear()
     client_name = message.text.strip()
