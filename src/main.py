@@ -8,7 +8,13 @@ from aiogram.types.input_file import FSInputFile
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
 
-from command_handlers import add_router, base_router, clientlist_router, remove_router
+from command_handlers import (
+    add_router,
+    base_router,
+    clientlist_router,
+    remove_router,
+    qr_router,
+)
 from core import config
 
 sys.path.insert(1, os.path.join(sys.path[0], ".."))
@@ -24,7 +30,9 @@ async def on_startup(bot: Bot) -> None:
 
 def main() -> None:
     dp = Dispatcher()
-    dp.include_routers(clientlist_router, add_router, remove_router, base_router)
+    dp.include_routers(
+        clientlist_router, add_router, remove_router, qr_router, base_router
+    )
     dp.startup.register(on_startup)
     bot = Bot(
         token=config.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)

@@ -6,6 +6,8 @@ from aiogram.types import Message
 
 from utils import IsAdmin, run_wireguard_cmd
 
+__all__ = ["router"]
+
 router = Router()
 
 

@@ -13,21 +13,21 @@ __all__ = ["router"]
 router = Router()
 
 
-class AddClientState(StatesGroup):
+class ShowQrClientState(StatesGroup):
     name = State()
 
 
-@router.message(and_f(IsAdmin(), Command("addclient")))
+@router.message(and_f(IsAdmin(), Command("showclientqr")))
 async def addclient(message: Message, state: FSMContext) -> None:
-    await state.set_state(AddClientState.name)
+    await state.set_state(ShowQrClientState.name)
     await message.answer("Enter client name")
 
 
-@router.message(AddClientState.name)
+@router.message(ShowQrClientState.name)
 async def process_added_clientname(message: Message, state: FSMContext) -> None:
     await state.clear()
     client_name = message.text.strip()
-    run_wireguard_cmd(["--addclient", client_name])
+    run_wireguard_cmd(["--showclientqr", client_name])
 
     conf_path = Path.home() / f"{client_name}.conf"
     png_path = Path.home() / f"{client_name}.png"
