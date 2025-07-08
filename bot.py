@@ -14,3 +14,8 @@ router = Router()
 async def list_clients(message: Message):
     wireguard_response = run_wireguard_cmd(["--listclients"])
     await message.answer(f"List of clients:\n```{wireguard_response}\n```")
+
+
+@router.message()
+async def echo(message: Message):
+    await message.answer(message.text)
