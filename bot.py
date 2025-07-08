@@ -4,6 +4,8 @@ from aiogram.types import Message
 from wireguard import run_wireguard_cmd
 from utils.filter import IsEgoric
 
+__all__ = ["router"]
+
 
 router = Router()
 
