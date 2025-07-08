@@ -6,5 +6,5 @@ __all__ = ["IsEgoric"]
 
 
 class IsEgoric(Filter):
-    def __call__(message: Message) -> bool:
+    async def __call__(self, message: Message) -> bool:
         return message.from_user.id == config.ADMIN_ID

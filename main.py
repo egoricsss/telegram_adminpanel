@@ -3,12 +3,14 @@ from config import config
 from bot import router
 from aiohttp import web
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.types.input_file import FSInputFile
 
 
 async def on_startup(bot: Bot) -> None:
     await bot.set_webhook(
-        f"{config.BASE_WEBHOOK_URL}{config.WEBHOOK_PATH}",
+        url=f"{config.BASE_WEBHOOK_URL}{config.WEBHOOK_PATH}",
         secret_token=config.WEBHOOK_SECRET,
+        certificate=FSInputFile(config.CERTIFICATE_PATH)
     )
 
 

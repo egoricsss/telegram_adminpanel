@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import HttpUrl
 
 __all__ = ["config"]
 
@@ -16,7 +15,8 @@ class Config(BaseSettings):
     WEB_SERVER_PORT: int
     WEBHOOK_PATH: str
     WEBHOOK_SECRET: str
-    BASE_WEBHOOK_URL: HttpUrl
+    BASE_WEBHOOK_URL: str
+    CERTIFICATE_PATH: str
 
 
 config = Config()

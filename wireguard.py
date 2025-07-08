@@ -7,7 +7,7 @@ __all__ = ["run_wireguard_cmd"]
 def run_wireguard_cmd(args: list[str]) -> str:
     try:
         result = subprocess.run(
-            ["bash", config.SCRIPT_PATH] + args,
+            ["sudo", "bash", config.SCRIPT_PATH] + args,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
