@@ -1019,7 +1019,7 @@ start_wg_service() {
 
 show_client_qr_code() {
 	qrencode -t UTF8 < "$export_dir$client".conf
-	qrencode -o "$export_dir$client".png < "$export_dir$client".conf
+	qrencode -o "$export_dir$client".png -s 10 -l H < "$export_dir$client".conf
 }
 
 finish_setup() {

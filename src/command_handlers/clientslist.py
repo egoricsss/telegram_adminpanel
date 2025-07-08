@@ -14,4 +14,4 @@ router = Router()
 @router.message(and_f(IsAdmin(), Command("listclients")))
 async def list_clients(message: Message) -> None:
     wireguard_response = run_wireguard_cmd(["--listclients"])
-    await message.answer(f"List of clients:\n<code>{wireguard_response}\n</code>")
+    await message.answer(f"<code>{wireguard_response}\n</code>")

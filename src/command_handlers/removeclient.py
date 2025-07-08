@@ -24,4 +24,4 @@ async def process_removed_clientname(message: Message, state: FSMContext) -> Non
     await state.clear()
     client_name = message.text.strip()
     wireguard_response = run_wireguard_cmd(["--removeclient", client_name])
-    await message.answer(f"Wireguard`s response:\n<code>{wireguard_response}</code>")
+    await message.answer(f"<code>{wireguard_response}</code>")

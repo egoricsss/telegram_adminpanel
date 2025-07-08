@@ -34,8 +34,8 @@ async def process_added_clientname(message: Message, state: FSMContext) -> None:
     png_file = FSInputFile(png_path, filename=f"{client_name}.png")
 
     media = [
-        InputMediaDocument(media=conf_file, caption=f"<b>{client_name}`s config</b>\n"),
-        InputMediaDocument(media=png_file, caption="🔳 QR-код для клиента"),
+        InputMediaDocument(media=conf_file, caption=f"{client_name}`s config"),
+        InputMediaDocument(media=png_file, caption=f"{client_name}`s QR-code"),
     ]
 
     await message.answer_media_group(media)
