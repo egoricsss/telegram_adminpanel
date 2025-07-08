@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import FileUrl, IPvAnyAddress, HttpUrl
+from pydantic import HttpUrl
 
 __all__ = ["config"]
 
@@ -9,10 +9,10 @@ class Config(BaseSettings):
         env_file=".env", env_file_encoding="utf-8", case_sensitive=False, extra="ignore"
     )
 
-    SCRIPT_PATH: FileUrl
+    SCRIPT_PATH: str
     TOKEN: str
     ADMIN_ID: int
-    WEB_SERVER_HOST: IPvAnyAddress
+    WEB_SERVER_HOST: str
     WEB_SERVER_PORT: int
     WEBHOOK_PATH: str
     WEBHOOK_SECRET: str
