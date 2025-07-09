@@ -12,10 +12,11 @@ from command_handlers import (
     add_router,
     base_router,
     clientlist_router,
-    remove_router,
     qr_router,
+    remove_router,
 )
 from core import config
+from middleware import AdminOnlyMiddleware
 
 sys.path.insert(1, os.path.join(sys.path[0], ".."))
 
@@ -33,6 +34,7 @@ def main() -> None:
     dp.include_routers(
         clientlist_router, add_router, remove_router, qr_router, base_router
     )
+    dp.message.middleware(AdminOnlyMiddleware())
     dp.startup.register(on_startup)
     bot = Bot(
         token=config.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
