@@ -38,7 +38,8 @@ async def process_added_clientname(message: Message, state: FSMContext) -> None:
     await message.answer(
         f"Are you sure to add client: {client_name}?",
         reply_markup=ReplyKeyboardMarkup(
-            [KeyboardButton(text="Yes"), KeyboardButton(text="No")]
+            [[KeyboardButton(text="Yes"), KeyboardButton(text="No")]],
+            resize_keyboard=True,
         ),
     )
 
@@ -61,4 +62,6 @@ async def add_client(message: Message, state: FSMContext) -> None:
         ]
 
         await message.answer_media_group(media)
+    else:
+        await message.answer(f"Adding {client_name} is canceled.")
     await state.clear()

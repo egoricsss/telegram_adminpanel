@@ -30,7 +30,8 @@ async def process_removed_clientname(message: Message, state: FSMContext) -> Non
     await message.answer(
         f"Are you sure to remove client: {client_name}?",
         reply_markup=ReplyKeyboardMarkup(
-            [KeyboardButton(text="Yes"), KeyboardButton(text="No")]
+            [[KeyboardButton(text="Yes"), KeyboardButton(text="No")]],
+            resize_keyboard=True,
         ),
     )
 
@@ -42,4 +43,6 @@ async def remove_client(message: Message, state: FSMContext) -> None:
         client_name = data["name"]
         wireguard_response = run_wireguard_cmd(["--removeclient", client_name])
         await message.answer(f"<code>{wireguard_response}</code>")
+    else:
+        await message.answer(f"Remove {client_name} is canceled.")
     await state.clear()
