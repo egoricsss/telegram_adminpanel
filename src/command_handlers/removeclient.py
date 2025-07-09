@@ -13,6 +13,7 @@ router = Router()
 
 class RemoveClientState(StatesGroup):
     name = State()
+    accept = State()
 
 
 @router.message(Command("removeclient"))
@@ -23,7 +24,7 @@ async def removeclient(message: Message, state: FSMContext) -> None:
 
 @router.message(RemoveClientState.name)
 async def process_removed_clientname(message: Message, state: FSMContext) -> None:
-    await state.clear()
+    await state.set_state(RemoveClientState.accept)
     client_name = message.text.strip()
     wireguard_response = run_wireguard_cmd(["--removeclient", client_name])
     await message.answer(f"<code>{wireguard_response}</code>")

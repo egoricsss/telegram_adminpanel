@@ -1139,9 +1139,11 @@ confirm_remove_client() {
 remove_client_conf() {
 	get_export_dir
 	wg_file="$export_dir$client.conf"
+	wg_qr="$export_dir$client.png"
 	if [ -f "$wg_file" ]; then
 		echo "Removing $wg_file..."
 		rm -f "$wg_file"
+		rm -f "$wg_qr"
 	fi
 }
 
